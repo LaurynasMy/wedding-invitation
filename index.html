@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joana ir Laurynas · Vestuvių kvietimas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=EB+Garamond:ital,wght@0,400;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Guard: redirect to gate if no valid code -->
+  <script>
+    (function() {
+      if (!sessionStorage.getItem('weddingCode')) {
+        window.location.replace('gate.html');
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ── HERO: arch background, content starts at very top ── -->
+  <section class="hero">
+    <div class="hero-bg-arch">
+      <img
+        src="hero-bg.jpg"
+        alt=""
+        class="hero-arch-img"
+      />
+    </div>
+
+    <div class="hero-content-layer">
+      <div class="hero-monogram">
+        <div class="hero-botanical">
+          <svg viewBox="0 0 260 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M80 105 C75 80 70 60 68 40" stroke="#4a6741" stroke-width="1.2" fill="none"/>
+            <path d="M68 40 C65 20 60 8 58 0" stroke="#4a6741" stroke-width="1.2" fill="none"/>
+            <ellipse cx="64" cy="35" rx="3" ry="6" fill="#7a9e6e" opacity="0.8" transform="rotate(-15 64 35)"/>
+            <ellipse cx="60" cy="20" rx="3" ry="6" fill="#7a9e6e" opacity="0.8" transform="rotate(-20 60 20)"/>
+            <ellipse cx="70" cy="12" rx="2.5" ry="5" fill="#7a9e6e" opacity="0.7" transform="rotate(5 70 12)"/>
+            <path d="M72 55 C80 48 88 44 94 42" stroke="#4a6741" stroke-width="1" fill="none"/>
+            <path d="M130 108 C128 85 125 65 122 45 C119 25 116 12 115 2" stroke="#4a6741" stroke-width="1.2" fill="none"/>
+            <path d="M122 45 C110 38 100 34 92 35" stroke="#4a6741" stroke-width="1" fill="none"/>
+            <path d="M155 105 C158 82 162 62 165 42" stroke="#4a6741" stroke-width="1.2" fill="none"/>
+            <path d="M165 42 C168 24 172 10 174 2" stroke="#4a6741" stroke-width="1.2" fill="none"/>
+            <path d="M163 55 C173 48 183 44 192 43" stroke="#4a6741" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+        <div class="diamond-frame sm">
+          <svg class="diamond-svg" viewBox="0 0 160 160" fill="none">
+            <polygon points="80,4 156,80 80,156 4,80" stroke="#333" stroke-width="1.2" fill="none"/>
+          </svg>
+          <div class="diamond-letters">
+            <span class="d-letter">J</span>
+            <span class="d-letter">L</span>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="hero-names">Joana ir Laurynas</h1>
+
+      <div class="couple-photo-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&auto=format&fit=crop&q=80"
+          alt="Joana ir Laurynas"
+          class="couple-photo"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BANNER: MES TUOKIAMĖS ── -->
+  <div class="banner">
+    <h2 class="banner-text">Mes tuokiamės!</h2>
+  </div>
+
+  <!-- ── COUNTDOWN ── -->
+  <section class="countdown-section">
+    <div class="countdown-layout">
+      <div class="date-pill-wrap">
+        <div class="date-pill">2027-02-12</div>
+      </div>
+      <div class="countdown-centre">
+        <div class="cd-vline"></div>
+        <div class="cd-icon">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="3" y="6" width="26" height="22" rx="2" stroke="#7a9e6e" stroke-width="1.5" fill="none"/>
+            <path d="M3 12H29" stroke="#7a9e6e" stroke-width="1.5"/>
+            <path d="M10 3V9M22 3V9" stroke="#7a9e6e" stroke-width="1.5" stroke-linecap="round"/>
+            <rect x="8" y="16" width="4" height="4" rx="0.5" fill="#7a9e6e" opacity="0.5"/>
+            <rect x="14" y="16" width="4" height="4" rx="0.5" fill="#7a9e6e" opacity="0.5"/>
+            <rect x="20" y="16" width="4" height="4" rx="0.5" fill="#7a9e6e" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="cd-vline"></div>
+      </div>
+      <div class="cd-boxes">
+        <div class="cd-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Dienos</span></div>
+        <div class="cd-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Valandos</span></div>
+        <div class="cd-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Minutės</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BANNER: PAGRINDINĖ INFORMACIJA ── -->
+  <div class="banner">
+    <h2 class="banner-text">Pagrindinė informacija</h2>
+  </div>
+
+  <!-- ── TIMELINE ── -->
+  <section class="schedule-section">
+    <div class="timeline">
+      <div class="tl-event">
+        <div class="tl-left">
+          <span class="tl-time">14:00H</span>
+          <span class="tl-desc">Santuokos ceremonija</span>
+        </div>
+        <div class="tl-centre">
+          <div class="tl-line"></div>
+          <div class="tl-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <rect x="10" y="18" width="20" height="16" rx="1" stroke="#7a9e6e" stroke-width="1.5" fill="none"/>
+              <path d="M7 20L20 8L33 20" stroke="#7a9e6e" stroke-width="1.5" fill="none"/>
+              <path d="M20 6V2M17 4H23" stroke="#7a9e6e" stroke-width="1.5" stroke-linecap="round"/>
+              <rect x="16" y="26" width="8" height="8" fill="none" stroke="#7a9e6e" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-right">
+          <h3 class="tl-venue">Winter Garden</h3>
+          <a href="https://www.google.com/maps/place/Winter+Garden/@55.8999344,21.247112,17.75z" target="_blank" class="tl-map-btn">Rodyti maršrutą</a>
+        </div>
+      </div>
+
+      <div class="tl-spacer"></div>
+
+      <div class="tl-event">
+        <div class="tl-left">
+          <span class="tl-time">17:00H</span>
+          <span class="tl-desc">Šventinio vakaro pradžia</span>
+        </div>
+        <div class="tl-centre">
+          <div class="tl-line"></div>
+          <div class="tl-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M12 6L8 20C8 24 11 27 14 27L14 34H10" stroke="#7a9e6e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M28 6L32 20C32 24 29 27 26 27L26 34H30" stroke="#7a9e6e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M14 34H26" stroke="#7a9e6e" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M8 14H32" stroke="#7a9e6e" stroke-width="1" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="tl-line"></div>
+        </div>
+        <div class="tl-right">
+          <h3 class="tl-venue">Cherry Manor</h3>
+          <a href="https://www.google.com/maps/place/CHERRY+MANOR/@55.9286377,21.4963516,18z" target="_blank" class="tl-map-btn">Rodyti maršrutą</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BANNER: PAPILDOMA INFORMACIJA ── -->
+  <div class="banner">
+    <h2 class="banner-text">Papildoma informacija</h2>
+  </div>
+
+  <section class="notes-section">
+    <ul class="notes-list">
+      <li>Be vestuvių vaišių ir gėrimų, mes taip pat pasirūpinsime ir Jūsų nakvyne.</li>
+      <li>Geriausia dovana – telpanti į vokelį.</li>
+      <li>Prašome apie dalyvavimą pranešti iki sausio 12 d.</li>
+    </ul>
+  </section>
+
+  <!-- ── VENUE PHOTOS ── -->
+  <section class="venue-photos">
+    <div class="venue-photo-card">
+      <img
+        src="winter-garden.jpg"
+        alt="Winter Garden - Kretinga"
+      />
+      <p class="venue-photo-label">Winter Garden · Kretinga</p>
+    </div>
+    <div class="venue-photo-card">
+      <img src="https://www.sventes.lt/uploads/objektas4232/vysniu-dvaras-jusu-22809.jpg" alt="Cherry Manor" />
+      <p class="venue-photo-label">Cherry Manor · Klaipėdos r.</p>
+    </div>
+  </section>
+
+  <!-- ── BANNER: RSVP ── -->
+  <div class="banner banner--rsvp">
+    <h2 class="banner-text">RSVP</h2>
+    <div class="banner-icon">
+      <svg viewBox="0 0 48 36" fill="none">
+        <rect x="1" y="1" width="46" height="34" rx="3" stroke="white" stroke-width="1.5" fill="none"/>
+        <path d="M1 3L24 21L47 3" stroke="white" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <p class="banner-sub">Informavimas apie dalyvavimą mūsų šventėje</p>
+  </div>
+
+  <!-- ── RSVP ── -->
+  <section class="rsvp-section">
+    <div class="rsvp-layout">
+      <div id="rsvpFormWrap" class="rsvp-card">
+        <div class="rsvp-field">
+          <label>Ar dalyvausite? <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="attend" value="yes" checked onchange="setAttend('yes')" />
+              dalyvausime
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="attend" value="no" onchange="setAttend('no')" />
+              nedalyvausime
+            </label>
+          </div>
+        </div>
+        <div class="rsvp-field">
+          <label>Svečių vardai ir pavardės <span class="req">*</span></label>
+          <input id="fName" type="text" />
+        </div>
+        <div class="rsvp-field">
+          <label>El. paštas <span class="req">*</span></label>
+          <input id="fEmail" type="email" />
+        </div>
+        <div class="rsvp-field">
+          <label>Jei norite, palikite mums žinutę</label>
+          <textarea id="fMessage" placeholder="žinutė" rows="4"></textarea>
+        </div>
+        <button class="send-btn" id="submitBtn" onclick="submitRSVP()">
+          <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+            <path d="M10 2C7.2 2 5 4.2 5 7V12H3V13H17V12H15V7C15 4.2 12.8 2 10 2Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            <path d="M8 13C8 14.1 8.9 15 10 15C11.1 15 12 14.1 12 13" stroke="currentColor" stroke-width="1.2" fill="none"/>
+          </svg>
+          Siųsti
+        </button>
+        <p id="formMsg" class="form-msg"></p>
+      </div>
+
+      <div class="rsvp-quote-wrap">
+        <blockquote class="rsvp-quote">„Ten kur didelė meilė, visada būna stebuklų."</blockquote>
+        <cite class="rsvp-cite">V. S. Kater</cite>
+      </div>
+    </div>
+
+    <div id="rsvpDone" class="rsvp-done" style="display:none;">
+      <p class="done-text">Ačiū! Jūsų atsakymas gautas.</p>
+      <p class="done-sub">Labai jūsų lauksime!</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p class="footer-text">Labai jūsų lauksime!</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
