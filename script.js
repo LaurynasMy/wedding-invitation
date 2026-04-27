@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════
    CONFIGURATION
 ═══════════════════════════════════════════════════ */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzh3XFfU1PqIDs5NHLcXV5DduXd03CojDnj_2Inl6hLgn44J5Kgd2odD8qF_bB9B_VkIg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw0cc1LzM8itr71FLAHufMZPCo3_4P4v0nG1t_FR7WwlX2KE9VVgQgtRWJWq5BVgj8EPA/exec';
 const WEDDING_DATE    = new Date(2027, 1, 12, 14, 0, 0); // Feb 12 2027, 14:00
 
 /* ═══════════════════════════════════════════════════
@@ -11,9 +11,39 @@ const currentCode  = sessionStorage.getItem('weddingCode') || '';
 let   attendingYes = true;
 
 /* ═══════════════════════════════════════════════════
-   START — countdown runs immediately on page load
+   START — countdown + personalized greeting on page load
 ═══════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', startCountdown);
+document.addEventListener('DOMContentLoaded', () => {
+  startCountdown();
+  renderGreeting();
+});
+
+/* ═══════════════════════════════════════════════════
+   PERSONALIZED GREETING
+═══════════════════════════════════════════════════ */
+function renderGreeting() {
+  const wrap     = document.getElementById('inviteGreeting');
+  const nameEl   = document.getElementById('greetingName');
+  const eyebrowEl = document.getElementById('greetingEyebrow');
+  if (!wrap || !nameEl) return;
+
+  const name = (sessionStorage.getItem('weddingName') || '').trim();
+  if (!name) return; // leave hidden if no name stored
+
+  nameEl.textContent = name; // textContent prevents HTML injection
+  if (eyebrowEl) eyebrowEl.textContent = greetingEyebrowFor(name);
+  wrap.style.display = 'block';
+}
+
+// "Jonas ir Petra" / "Jonas, Petra" → plural; "Onutė" → singular (gendered).
+function greetingEyebrowFor(name) {
+  const isPlural = name.includes(',') || /\bir\b/i.test(name);
+  if (isPlural) return 'Mielieji,';
+
+  const lastChar = name.toLowerCase().slice(-1);
+  const isFemale = lastChar === 'a' || lastChar === 'ė' || lastChar === 'e';
+  return isFemale ? 'Miela,' : 'Mielas,';
+}
 
 /* ═══════════════════════════════════════════════════
    COUNTDOWN
@@ -90,8 +120,20 @@ async function submitRSVP() {
       }),
     });
 
-    document.getElementById('rsvpFormWrap').style.display = 'none';
-    document.getElementById('rsvpDone').style.display     = 'block';
+    // Clear fields
+    nameEl.value  = '';
+    emailEl.value = '';
+    msgEl.value   = '';
+
+    // Animate form out, then swap to thank-you message
+    const layout = document.querySelector('.rsvp-layout');
+    const done   = document.getElementById('rsvpDone');
+    if (layout) layout.classList.add('is-leaving');
+    setTimeout(() => {
+      if (layout) layout.style.display = 'none';
+      done.style.display = 'block';
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 450);
   } catch (err) {
     console.error(err);
     formMsg.textContent = 'Klaida siunčiant. Bandykite dar kartą.';

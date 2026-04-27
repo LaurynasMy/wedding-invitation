@@ -187,7 +187,7 @@ a { text-decoration: none; color: inherit; }
 /* Couple photo */
 .couple-photo-wrap {
   display: flex; justify-content: center;
-  padding: 24px 16px 0;
+  padding: 72px 16px 0;
   position: relative; z-index: 2;
 }
 .couple-photo {
@@ -197,6 +197,64 @@ a { text-decoration: none; color: inherit; }
   object-position: center top;
   border-radius: 230px 230px 12px 12px;
   box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+}
+
+/* ═══════════════════════════════════════════════════
+   PERSONALIZED GREETING
+═══════════════════════════════════════════════════ */
+.invite-greeting {
+  text-align: center;
+  padding: 56px 44px 56px;
+  max-width: 680px;
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 28px rgba(90, 130, 80, 0.08);
+}
+.greeting-ornament {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.greeting-ornament svg {
+  width: 220px;
+  height: auto;
+  max-width: 90%;
+}
+.greeting-eyebrow {
+  font-family: var(--ff-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 36px;
+}
+.greeting-name {
+  font-family: 'HealingFairy', cursive;
+  font-size: clamp(2.8rem, 6.5vw, 4.2rem);
+  font-weight: normal;
+  color: #111;
+  line-height: 1;
+  margin-bottom: 36px;
+}
+.greeting-text {
+  font-family: var(--ff-serif);
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .invite-greeting {
+    margin: 32px 16px;
+    padding: 44px 24px 44px;
+  }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -341,9 +399,10 @@ a { text-decoration: none; color: inherit; }
 .venue-photo-card { position: relative; overflow: hidden; aspect-ratio: 16/9; }
 .venue-photo-card img {
   width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.05);
   transition: transform 0.5s var(--ease); filter: saturate(0.85);
 }
-.venue-photo-card:hover img { transform: scale(1.04); }
+.venue-photo-card:hover img { transform: scale(1.09); }
 .venue-photo-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   background: rgba(90, 112, 85, 0.75); color: white;
@@ -416,8 +475,33 @@ a { text-decoration: none; color: inherit; }
   color: var(--text-light); letter-spacing: 0.08em; font-style: normal;
 }
 .rsvp-done { text-align: center; padding: 64px 24px; animation: fadeIn 0.8s var(--ease); }
+.done-check { width: 84px; height: 84px; margin: 0 auto 24px; }
+.done-check svg { width: 100%; height: 100%; }
+.check-circle {
+  stroke-dasharray: 165;
+  stroke-dashoffset: 165;
+  animation: draw 0.65s var(--ease) 0.15s forwards;
+}
+.check-path {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: draw 0.4s var(--ease) 0.7s forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
 .done-text { font-family: var(--ff-hand); font-size: 2.6rem; color: var(--banner); margin-bottom: 14px; }
 .done-sub { font-size: 1.1rem; color: var(--text-light); }
+
+/* RSVP form leaving animation */
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-12px); }
+}
+.rsvp-layout.is-leaving {
+  animation: fadeOut 0.45s var(--ease) forwards;
+  pointer-events: none;
+}
 
 /* ═══════════════════════════════════════════════════
    FOOTER

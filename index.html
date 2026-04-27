@@ -48,6 +48,26 @@
     </div>
   </section>
 
+  <!-- ── PERSONALIZED GREETING ── -->
+  <section class="invite-greeting" id="inviteGreeting" style="display:none;">
+    <div class="greeting-ornament" aria-hidden="true">
+      <svg viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="6" y1="14" x2="85" y2="14" stroke="#7a8c42" stroke-width="0.7" opacity="0.5"/>
+        <path d="M110 26 L110 3" stroke="#4f5c2a" stroke-width="0.8" opacity="0.65"/>
+        <ellipse cx="104" cy="20" rx="3" ry="6.5" fill="#7a8c42" opacity="0.55" transform="rotate(-25 104 20)"/>
+        <ellipse cx="102" cy="13" rx="2.5" ry="5.5" fill="#7a8c42" opacity="0.5" transform="rotate(-20 102 13)"/>
+        <ellipse cx="104" cy="7" rx="2" ry="4" fill="#7a8c42" opacity="0.45" transform="rotate(-12 104 7)"/>
+        <ellipse cx="116" cy="20" rx="3" ry="6.5" fill="#7a8c42" opacity="0.55" transform="rotate(25 116 20)"/>
+        <ellipse cx="118" cy="13" rx="2.5" ry="5.5" fill="#7a8c42" opacity="0.5" transform="rotate(20 118 13)"/>
+        <ellipse cx="116" cy="7" rx="2" ry="4" fill="#7a8c42" opacity="0.45" transform="rotate(12 116 7)"/>
+        <line x1="135" y1="14" x2="214" y2="14" stroke="#7a8c42" stroke-width="0.7" opacity="0.5"/>
+      </svg>
+    </div>
+    <p class="greeting-eyebrow" id="greetingEyebrow">Mielieji,</p>
+    <h2 class="greeting-name" id="greetingName"></h2>
+    <p class="greeting-text">mums būtų didelis džiaugsmas matyti Jus mūsų ypatingą dieną ir drauge švęsti šios šventės akimirkas.</p>
+  </section>
+
   <!-- ── BANNER: MES TUOKIAMĖS ── -->
   <div class="banner">
     <h2 class="banner-text">Mes tuokiamės!</h2>
@@ -117,7 +137,7 @@
 
       <div class="tl-event">
         <div class="tl-left">
-          <span class="tl-time">17:00H</span>
+          <span class="tl-time">18:00H</span>
           <span class="tl-desc">Šventinio vakaro pradžia</span>
         </div>
         <div class="tl-centre">
@@ -134,7 +154,7 @@
         </div>
         <div class="tl-right">
           <h3 class="tl-venue">Vyšnių Dvaras</h3>
-          <p class="tl-address">Pušyno g. 14, 97342 Kretingos r. sav.</p>
+          <p class="tl-address">Pušyno g. 14, Kalniškiai, 97342 Klaipėdos r. sav.</p>
           <a href="https://www.google.com/maps/place/CHERRY+MANOR/@55.9286377,21.4963516,18z" target="_blank" class="tl-map-btn">Rodyti maršrutą</a>
         </div>
       </div>
@@ -148,8 +168,8 @@
 
   <section class="notes-section">
     <ul class="notes-list">
-      <li>Be vestuvių vaišių ir gėrimų, mes taip pat pasirūpinsime ir Jūsų nakvyne Vyšnių dvare.</li>
-      <li>Po santuokos ceremonijos Kretingos muziejuje, kiekvienam svečiui yra nupirkti bilietai — lauks laisvas laikas pasivaikščioti po rūmus ir žiemos sodą.</li>
+      <li>Be vaišių ir gėrimų, mes taip pat pasirūpinsime ir Jūsų nakvyne Vyšnių dvare.</li>
+      <li>Po santuokos ceremonijos pasirūpinsime kiekvieno svečio bilietu į Kretingos muziejų — lauks laisvas laikas pasivaikščioti po rūmus ir žiemos sodą.</li>
       <li>Geriausia dovana – telpanti į vokelį. Gėlėmis jau pasirūpinta — jūsų laikas ir šypsena vertingesnė už puokštę.</li>
       <li>Aprangos kodas — elegantiškas. Džiaugsimės matydami jus šventiškai pasipuošusius!</li>
       <li>Šventė skirta tik suaugusiems — dėkojame už supratimą.</li>
@@ -202,8 +222,8 @@
           </div>
         </div>
         <div class="rsvp-field">
-          <label>Svečių vardai ir pavardės <span class="req">*</span></label>
-          <input id="fName" type="text" />
+          <label>Svečių vardai <span class="req">*</span></label>
+          <input id="fName" type="text" placeholder="pvz. Jonas ir Petra" />
         </div>
         <div class="rsvp-field">
           <label>El. paštas <span class="req">*</span></label>
@@ -234,6 +254,12 @@
     </div>
 
     <div id="rsvpDone" class="rsvp-done" style="display:none;">
+      <div class="done-check" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="check-circle" cx="30" cy="30" r="26" fill="none" stroke="#7a8c42" stroke-width="2"/>
+          <path class="check-path" d="M18 31 L26 39 L42 22" fill="none" stroke="#7a8c42" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <p class="done-text">Ačiū! Jūsų atsakymas gautas.</p>
       <p class="done-sub">Labai jūsų lauksime!</p>
     </div>

@@ -20,9 +20,8 @@ const SHEET_NAME = 'Svečiai';
 function doGet(e) {
   const params = e.parameter;
   if (params.action === 'validateCode') {
-    const code  = (params.code || '').toString().trim().toUpperCase();
-    const valid = isValidCode(code);
-    return jsonResponse({ valid });
+    const code = (params.code || '').toString().trim().toUpperCase();
+    return jsonResponse(lookupCode(code));
   }
   return jsonResponse({ error: 'Unknown action' });
 }
@@ -41,13 +40,15 @@ function doPost(e) {
 }
 
 // ── Helpers ────────────────────────────────────────────────────
-function isValidCode(code) {
+function lookupCode(code) {
   const sheet = getSheet();
-  const codes = sheet.getRange('A2:A').getValues();
-  for (let i = 0; i < codes.length; i++) {
-    if ((codes[i][0] || '').toString().trim().toUpperCase() === code) return true;
+  const data  = sheet.getRange('A2:B').getValues();
+  for (let i = 0; i < data.length; i++) {
+    if ((data[i][0] || '').toString().trim().toUpperCase() === code) {
+      return { valid: true, name: (data[i][1] || '').toString().trim() };
+    }
   }
-  return false;
+  return { valid: false };
 }
 
 function writeRSVP(p) {

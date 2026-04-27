@@ -100,6 +100,12 @@
       color: #2d3a2a;
       line-height: 1.2;
     }
+    .d-rings {
+      width: 42px;
+      margin: 4px 0;
+      opacity: 0.85;
+    }
+    .d-rings svg { width: 100%; height: auto; display: block; }
 
     /* ── Hint text ── */
     .gate-hint {
@@ -185,30 +191,18 @@
   <div class="gate-card">
     <div class="gate-inner">
       <div class="monogram-wrap">
-        <div class="botanical-art">
-          <svg viewBox="0 0 260 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M80 105 C75 80 70 60 68 40" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
-            <path d="M68 40 C65 20 60 8 58 0" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
-            <ellipse cx="64" cy="35" rx="3" ry="6" fill="#7a8c42" opacity="0.8" transform="rotate(-15 64 35)"/>
-            <ellipse cx="60" cy="20" rx="3" ry="6" fill="#7a8c42" opacity="0.8" transform="rotate(-20 60 20)"/>
-            <ellipse cx="70" cy="12" rx="2.5" ry="5" fill="#7a8c42" opacity="0.7" transform="rotate(5 70 12)"/>
-            <path d="M72 55 C80 48 88 44 94 42" stroke="#4f5c2a" stroke-width="1" fill="none"/>
-            <path d="M74 65 C83 60 90 58 96 57" stroke="#4f5c2a" stroke-width="1" fill="none"/>
-            <path d="M130 108 C128 85 125 65 122 45 C119 25 116 12 115 2" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
-            <path d="M122 45 C110 38 100 34 92 35" stroke="#4f5c2a" stroke-width="1" fill="none"/>
-            <path d="M119 60 C108 55 98 52 90 54" stroke="#4f5c2a" stroke-width="1" fill="none"/>
-            <path d="M155 105 C158 82 162 62 165 42" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
-            <path d="M165 42 C168 24 172 10 174 2" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
-            <path d="M163 55 C173 48 183 44 192 43" stroke="#4f5c2a" stroke-width="1" fill="none"/>
-            <path d="M166 70 C176 65 185 63 193 63" stroke="#4f5c2a" stroke-width="1" fill="none"/>
-          </svg>
-        </div>
         <div class="diamond-frame">
           <svg class="diamond-svg" viewBox="0 0 160 160" fill="none">
             <polygon points="80,4 156,80 80,156 4,80" stroke="#333" stroke-width="1.2" fill="none"/>
           </svg>
           <div class="diamond-letters">
             <span class="d-letter">J</span>
+            <div class="d-rings" aria-hidden="true">
+              <svg viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="15" cy="10" r="7" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
+                <circle cx="25" cy="10" r="7" stroke="#4f5c2a" stroke-width="1.2" fill="none"/>
+              </svg>
+            </div>
             <span class="d-letter">L</span>
           </div>
         </div>
@@ -224,7 +218,7 @@
   </div>
 
   <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzh3XFfU1PqIDs5NHLcXV5DduXd03CojDnj_2Inl6hLgn44J5Kgd2odD8qF_bB9B_VkIg/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw0cc1LzM8itr71FLAHufMZPCo3_4P4v0nG1t_FR7WwlX2KE9VVgQgtRWJWq5BVgj8EPA/exec';
 
     document.getElementById('codeInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') validateCode();
@@ -248,8 +242,10 @@
         const data     = await response.json();
 
         if (data.valid) {
-          // Pass the validated code to invitation page via sessionStorage
+          // Pass the validated code + guest name to invitation page via sessionStorage
           sessionStorage.setItem('weddingCode', code);
+          if (data.name) sessionStorage.setItem('weddingName', data.name);
+          else sessionStorage.removeItem('weddingName');
           window.location.href = 'index.html';
         } else {
           errorEl.textContent = 'Neteisingas kodas. Bandykite dar kartą.';
