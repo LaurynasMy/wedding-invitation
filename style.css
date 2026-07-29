@@ -336,10 +336,10 @@ a { text-decoration: none; color: inherit; }
 }
 .tl-left { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
 .tl-time {
-  font-family: var(--ff-body); font-size: 1.25rem;
+  font-family: var(--ff-body); font-size: 1.45rem;
   font-weight: 500; color: var(--banner); letter-spacing: 0.05em;
 }
-.tl-desc { font-family: var(--ff-serif); font-size: 1.15rem; color: var(--text-light); }
+.tl-desc { font-family: var(--ff-serif); font-size: 1.35rem; color: var(--text-light); }
 
 .tl-centre { display: flex; flex-direction: column; align-items: center; height: 100%; }
 .tl-line { flex: 1; width: 1px; background: var(--border); min-height: 24px; }
