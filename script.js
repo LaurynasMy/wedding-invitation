@@ -19,33 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ═══════════════════════════════════════════════════
-   PERSONALIZED GREETING
-═══════════════════════════════════════════════════ */
-function renderGreeting() {
-  const wrap     = document.getElementById('inviteGreeting');
-  const nameEl   = document.getElementById('greetingName');
-  const eyebrowEl = document.getElementById('greetingEyebrow');
-  if (!wrap || !nameEl) return;
-
-  const name = (sessionStorage.getItem('weddingName') || '').trim();
-  if (!name) return; // leave hidden if no name stored
-
-  nameEl.textContent = name; // textContent prevents HTML injection
-  if (eyebrowEl) eyebrowEl.textContent = greetingEyebrowFor(name);
-  wrap.style.display = 'block';
-}
-
-// "Jonas ir Petra" / "Jonas, Petra" → plural; "Onutė" → singular (gendered).
-function greetingEyebrowFor(name) {
-  const isPlural = name.includes(',') || /\bir\b/i.test(name);
-  if (isPlural) return 'Mielieji,';
-
-  const lastChar = name.toLowerCase().slice(-1);
-  const isFemale = lastChar === 'a' || lastChar === 'ė' || lastChar === 'e';
-  return isFemale ? 'Miela,' : 'Mielas,';
-}
-
-/* ═══════════════════════════════════════════════════
    COUNTDOWN
 ═══════════════════════════════════════════════════ */
 function startCountdown() {
