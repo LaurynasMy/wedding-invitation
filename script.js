@@ -11,12 +11,85 @@ const currentCode  = sessionStorage.getItem('weddingCode') || '';
 let   attendingYes = true;
 
 /* ═══════════════════════════════════════════════════
-   START — countdown + personalized greeting on page load
+   START — countdown + photo strips on page load
 ═══════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   startCountdown();
-  renderGreeting();
+  buildPhotoStrips();
 });
+
+/* ═══════════════════════════════════════════════════
+   STORY PHOTO STRIPS
+   Top strip = pirmas/, bottom strip = antras/.
+   Photos are discovered automatically by number:
+   name them 1.jpeg, 2.jpeg, 3.jpeg … with no gaps —
+   the strip stops at the first missing number.
+   Add / rename / reorder files in the folder,
+   no code changes needed.
+═══════════════════════════════════════════════════ */
+const STRIP_EXTENSIONS = ['jpeg', 'jpg', 'png', 'webp'];
+const STRIP_MAX_PHOTOS = 100;
+const STRIP_CHUNK      = 10; // how many numbers are checked in parallel
+
+function buildPhotoStrips() {
+  fillStrip('storyStripTop',    'pirmas');
+  fillStrip('storyStripBottom', 'antras');
+}
+
+async function fillStrip(stripId, folder) {
+  const strip = document.getElementById(stripId);
+  if (!strip) return;
+
+  outer:
+  for (let n = 1; n <= STRIP_MAX_PHOTOS; n += STRIP_CHUNK) {
+    const lookups = [];
+    for (let i = n; i < n + STRIP_CHUNK && i <= STRIP_MAX_PHOTOS; i++) {
+      lookups.push(findPhoto(folder, i));
+    }
+    for (const lookup of lookups) {
+      const src = await lookup;
+      if (!src) break outer; // first missing number = end of strip
+      strip.appendChild(makePhotoCard(src));
+    }
+  }
+
+  // Folder not numbered yet (or empty) — collapse the empty band
+  if (!strip.children.length) strip.style.display = 'none';
+}
+
+// Try each known extension for photo number n; null if none exists.
+async function findPhoto(folder, n) {
+  for (const ext of STRIP_EXTENSIONS) {
+    const src = `${folder}/${n}.${ext}`;
+    if (await imageExists(src)) return src;
+  }
+  return null;
+}
+
+function imageExists(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload  = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+function makePhotoCard(src) {
+  const btn = document.createElement('button');
+  btn.type      = 'button';
+  btn.className = 'story-card';
+  btn.setAttribute('aria-label', 'Padidinti nuotrauką');
+  btn.addEventListener('click', () => openLightbox(src));
+
+  const img = document.createElement('img');
+  img.src     = src;
+  img.alt     = '';
+  img.loading = 'lazy';
+
+  btn.appendChild(img);
+  return btn;
+}
 
 /* ═══════════════════════════════════════════════════
    COUNTDOWN
@@ -43,6 +116,29 @@ function startCountdown() {
 }
 
 /* ═══════════════════════════════════════════════════
+   LIGHTBOX — story bubble photos open full size
+═══════════════════════════════════════════════════ */
+function openLightbox(src) {
+  const box = document.getElementById('lightbox');
+  const img = document.getElementById('lightboxImg');
+  if (!box || !img) return;
+  img.src = src;
+  box.classList.add('open');
+  document.body.style.overflow = 'hidden'; // lock scroll behind overlay
+}
+
+function closeLightbox() {
+  const box = document.getElementById('lightbox');
+  if (!box) return;
+  box.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+/* ═══════════════════════════════════════════════════
    ATTEND RADIO
 ═══════════════════════════════════════════════════ */
 function setAttend(value) {
@@ -54,24 +150,17 @@ function setAttend(value) {
 ═══════════════════════════════════════════════════ */
 async function submitRSVP() {
   const nameEl    = document.getElementById('fName');
-  const emailEl   = document.getElementById('fEmail');
   const msgEl     = document.getElementById('fMessage');
   const submitBtn = document.getElementById('submitBtn');
   const formMsg   = document.getElementById('formMsg');
 
   const name    = nameEl.value.trim();
-  const email   = emailEl.value.trim();
   const message = msgEl.value.trim();
 
   if (!name) {
     formMsg.textContent = 'Prašome įvesti vardą.';
     formMsg.className   = 'form-msg error';
     nameEl.focus(); return;
-  }
-  if (!email || !email.includes('@')) {
-    formMsg.textContent = 'Prašome įvesti teisingą el. paštą.';
-    formMsg.className   = 'form-msg error';
-    emailEl.focus(); return;
   }
 
   submitBtn.disabled    = true;
@@ -86,7 +175,6 @@ async function submitRSVP() {
         action:    'submitRSVP',
         code:      currentCode,
         name,
-        email,
         attending: attendingYes ? 'Taip' : 'Ne',
         message,
         timestamp: new Date().toISOString(),
@@ -95,7 +183,6 @@ async function submitRSVP() {
 
     // Clear fields
     nameEl.value  = '';
-    emailEl.value = '';
     msgEl.value   = '';
 
     // Animate form out, then swap to thank-you message

@@ -172,7 +172,11 @@
     </div>
   </section>
   
-    <!-- ── PERSONALIZED GREETING ── -->
+  <!-- ── PERSONALIZED GREETING / OUR STORY ── -->
+  <div class="story-layout">
+    <!-- Photo strip ABOVE the story — filled from pirmas/ by script.js -->
+    <div class="story-strip" id="storyStripTop" role="region" aria-label="Nuotraukų juosta"></div>
+
   <section class="invite-greeting" id="inviteGreeting">
     <div class="greeting-ornament">
       <svg viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -201,6 +205,10 @@ Taigi, mielas Skaitytojau, jeigu šios istorijos pabaiga pasiekė Tavo akis, vad
 
 Lauksime Tavęs. O dabar belieka spustelėti – „Dalyvausiu"</p>
   </section>
+
+    <!-- Photo strip BELOW the story — filled from antras/ by script.js -->
+    <div class="story-strip" id="storyStripBottom" role="region" aria-label="Nuotraukų juosta"></div>
+  </div>
 
   <!-- ── BANNER: RSVP ── -->
   <div class="banner banner--rsvp">
@@ -234,10 +242,6 @@ Lauksime Tavęs. O dabar belieka spustelėti – „Dalyvausiu"</p>
         <div class="rsvp-field">
           <label>Svečių vardai <span class="req">*</span></label>
           <input id="fName" type="text" />
-        </div>
-        <div class="rsvp-field">
-          <label>El. paštas <span class="req">*</span></label>
-          <input id="fEmail" type="email" />
         </div>
         <div class="rsvp-field">
           <label>Jei norite, palikite mums žinutę</label>
@@ -279,6 +283,12 @@ Lauksime Tavęs. O dabar belieka spustelėti – „Dalyvausiu"</p>
   <footer class="site-footer">
     <p class="footer-text">Labai jūsų lauksime!</p>
   </footer>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button type="button" class="lightbox-close" aria-label="Uždaryti">&times;</button>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
 
   <script src="script.js"></script>
 </body>
