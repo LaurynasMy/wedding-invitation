@@ -244,9 +244,11 @@ a { text-decoration: none; color: inherit; }
   box-shadow: 0 6px 20px rgba(60, 90, 50, 0.18);
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
-.story-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(60, 90, 50, 0.28);
+@media (hover: hover) {
+  .story-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(60, 90, 50, 0.28);
+  }
 }
 .story-card img {
   width: 100%;
@@ -327,6 +329,7 @@ a { text-decoration: none; color: inherit; }
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   cursor: zoom-out;
+  overscroll-behavior: none;
 }
 .lightbox.open { display: flex; animation: lbFade 0.25s ease; }
 @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
@@ -458,7 +461,7 @@ a { text-decoration: none; color: inherit; }
 }
 .tl-map-btn {
   display: inline-block; background: var(--map-btn); color: white;
-  padding: 10px 26px; font-family: var(--ff-body);
+  padding: 13px 28px; font-family: var(--ff-body);
   font-size: 0.92rem; font-weight: 400;
   border-radius: 3px; transition: background 0.3s; letter-spacing: 0.05em;
 }
@@ -496,7 +499,9 @@ a { text-decoration: none; color: inherit; }
   transform: scale(1.05);
   transition: transform 0.5s var(--ease); filter: saturate(0.85);
 }
-.venue-photo-card:hover img { transform: scale(1.09); }
+@media (hover: hover) {
+  .venue-photo-card:hover img { transform: scale(1.09); }
+}
 .venue-photo-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   background: rgba(90, 112, 85, 0.75); color: white;
@@ -528,6 +533,7 @@ a { text-decoration: none; color: inherit; }
 .radio-group { display: flex; flex-direction: column; gap: 12px; padding-left: 4px; }
 .radio-label {
   display: flex; align-items: center; gap: 12px;
+  min-height: 44px; /* comfortable touch target */
   font-size: 1.1rem; font-weight: 300; color: var(--text); cursor: pointer;
 }
 .radio-label input[type="radio"] {
@@ -628,13 +634,13 @@ a { text-decoration: none; color: inherit; }
   .cd-vline { width: 32px; height: 1px; }
   .cd-boxes { width: 100%; }
   .cd-box { flex: 1; min-width: unset; padding: 14px 8px; }
-  .tl-event { grid-template-columns: 1fr 48px 1fr; }
+  .tl-event, .tl-spacer { grid-template-columns: 1fr 48px 1fr; }
   .rsvp-card { padding: 32px 20px; margin-left: 12px; margin-right: 12px; }
   .rsvp-quote-wrap { padding: 28px 20px; }
   .couple-photo { width: min(340px, 85vw); }
 }
 @media (max-width: 400px) {
-  .tl-event { grid-template-columns: 90px 44px 1fr; }
+  .tl-event, .tl-spacer { grid-template-columns: 90px 44px 1fr; }
   .tl-time { font-size: 1rem; }
   .tl-desc { font-size: 0.9rem; }
 }

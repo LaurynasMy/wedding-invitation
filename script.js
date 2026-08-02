@@ -16,7 +16,35 @@ let   attendingYes = true;
 document.addEventListener('DOMContentLoaded', () => {
   startCountdown();
   buildPhotoStrips();
+  fitHeroNames();
 });
+
+/* ═══════════════════════════════════════════════════
+   HERO NAME FIT — keeps the script names inside the
+   screen: shrinks them a little only when they do not
+   fit between the side paddings (narrow phones)
+═══════════════════════════════════════════════════ */
+function fitHeroNames() {
+  const stack = document.querySelector('.hero-names-stack');
+  if (!stack) return;
+
+  const cs    = getComputedStyle(stack);
+  const avail = stack.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+
+  stack.querySelectorAll('.hero-name-first, .hero-name-second').forEach(el => {
+    el.style.fontSize = '';                        // start from the stylesheet size
+    let size  = parseFloat(getComputedStyle(el).fontSize);
+    let guard = 40;                                // safety cap on iterations
+    while (el.scrollWidth > avail && size > 28 && guard-- > 0) {
+      size *= 0.96;                                // shave 4% until it fits
+      el.style.fontSize = `${size}px`;
+    }
+  });
+}
+
+// Re-fit once the handwriting font finishes loading, and on resize/rotation
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroNames);
+window.addEventListener('resize', fitHeroNames);
 
 /* ═══════════════════════════════════════════════════
    STORY PHOTO STRIPS
